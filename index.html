@@ -1,15 +1,11 @@
-<!DOCTYPE html>
+xxxx<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Album Concept Chụp Ảnh</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: Arial, sans-serif;
@@ -24,25 +20,10 @@
       background: linear-gradient(180deg, #ffe8df, #fff8f5);
     }
 
-    header h1 {
-      font-size: 36px;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
-    }
+    header h1 { font-size: 36px; margin-bottom: 12px; letter-spacing: 0.5px; }
+    header p { max-width: 620px; margin: 0 auto 24px; color: #7a5f5a; font-size: 16px; }
 
-    header p {
-      max-width: 620px;
-      margin: 0 auto 24px;
-      color: #7a5f5a;
-      font-size: 16px;
-    }
-
-    .contact-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+    .contact-buttons { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
 
     .btn {
       display: inline-block;
@@ -53,18 +34,12 @@
       color: white;
       font-weight: bold;
       transition: 0.2s;
+      border: none;
+      cursor: pointer;
     }
 
-    .btn.secondary {
-      background: white;
-      color: #c98676;
-      border: 1px solid #e8c8bf;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
-    }
+    .btn.secondary { background: white; color: #c98676; border: 1px solid #e8c8bf; }
+    .btn:hover { transform: translateY(-2px); opacity: 0.9; }
 
     nav {
       position: sticky;
@@ -90,24 +65,10 @@
       font-size: 14px;
     }
 
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 30px 16px 60px;
-    }
-
-    .section-title {
-      margin: 34px 0 18px;
-    }
-
-    .section-title h2 {
-      font-size: 28px;
-      margin-bottom: 6px;
-    }
-
-    .section-title p {
-      color: #8b6f69;
-    }
+    main { max-width: 1100px; margin: auto; padding: 30px 16px 60px; }
+    .section-title { margin: 34px 0 18px; }
+    .section-title h2 { font-size: 28px; margin-bottom: 6px; }
+    .section-title p { color: #8b6f69; }
 
     .grid {
       display: grid;
@@ -121,7 +82,11 @@
       overflow: hidden;
       box-shadow: 0 12px 30px rgba(135, 83, 70, 0.1);
       border: 1px solid #f4dfd8;
+      cursor: pointer;
+      transition: 0.2s;
     }
+
+    .card:hover { transform: translateY(-4px); }
 
     .card img {
       width: 100%;
@@ -131,14 +96,8 @@
       background: #f3dfd8;
     }
 
-    .card-content {
-      padding: 16px;
-    }
-
-    .card h3 {
-      font-size: 18px;
-      margin-bottom: 6px;
-    }
+    .card-content { padding: 16px; }
+    .card h3 { font-size: 18px; margin-bottom: 6px; }
 
     .tag {
       display: inline-block;
@@ -150,10 +109,8 @@
       margin-bottom: 10px;
     }
 
-    .card p {
-      font-size: 14px;
-      color: #76615d;
-    }
+    .card p { font-size: 14px; color: #76615d; }
+    .view-hint { margin-top: 10px; font-size: 13px; color: #c98676; font-weight: bold; }
 
     .note-box {
       margin-top: 40px;
@@ -172,31 +129,118 @@
       border-top: 1px solid #f0ddd7;
     }
 
-    @media (max-width: 850px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(36, 25, 25, 0.88);
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
     }
 
+    .lightbox.active { display: flex; }
+
+    .lightbox-box {
+      width: min(980px, 100%);
+      background: #fff8f5;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .lightbox-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid #f0ddd7;
+    }
+
+    .lightbox-header h3 { font-size: 18px; }
+
+    .close-btn {
+      border: none;
+      background: #3b2f2f;
+      color: white;
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .main-photo-wrap {
+      position: relative;
+      background: #2f2525;
+    }
+
+    .main-photo {
+      width: 100%;
+      height: 68vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: rgba(255,255,255,0.85);
+      color: #3b2f2f;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .arrow.left { left: 12px; }
+    .arrow.right { right: 12px; }
+
+    .thumbs {
+      display: flex;
+      gap: 10px;
+      padding: 12px;
+      overflow-x: auto;
+      background: white;
+    }
+
+    .thumbs img {
+      width: 82px;
+      height: 82px;
+      object-fit: cover;
+      border-radius: 14px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      opacity: 0.75;
+    }
+
+    .thumbs img.active {
+      border-color: #c98676;
+      opacity: 1;
+    }
+
+    @media (max-width: 850px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
     @media (max-width: 560px) {
-      header h1 {
-        font-size: 28px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card img {
-        height: 320px;
-      }
+      header h1 { font-size: 28px; }
+      .grid { grid-template-columns: 1fr; }
+      .card img { height: 320px; }
+      .main-photo { height: 58vh; }
+      .arrow { width: 36px; height: 36px; font-size: 20px; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Album Concept Chụp Ảnh</h1>
-    <p>Chọn mood chụp bạn thích, lưu lại tên concept và gửi cho mình để được tư vấn outfit, makeup, bối cảnh và lịch chụp phù hợp.</p>
+    <p>Chọn mood chụp bạn thích, bấm vào từng concept để xem thêm ảnh mẫu. Sau đó gửi tên concept hoặc ảnh chụp màn hình cho mình để được tư vấn nhanh hơn.</p>
     <div class="contact-buttons">
       <a class="btn" href="https://zalo.me/0123456789" target="_blank">Nhắn Zalo</a>
       <a class="btn secondary" href="https://facebook.com/yourpage" target="_blank">Facebook</a>
@@ -217,29 +261,17 @@
         <p>Phù hợp chụp sản phẩm, thời trang cá nhân, thương hiệu nhỏ hoặc set đồ theo mùa.</p>
       </div>
       <div class="grid">
-        <div class="card">
+        <div class="card" onclick="openAlbum('Lookbook tối giản', albums.lookbookClean)">
           <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80" alt="Lookbook clean" />
-          <div class="card-content">
-            <span class="tag">Clean / Hàn</span>
-            <h3>Lookbook tối giản</h3>
-            <p>Nền sáng, outfit rõ, phù hợp shop thời trang hoặc chụp profile nhẹ nhàng.</p>
-          </div>
+          <div class="card-content"><span class="tag">Clean / Hàn</span><h3>Lookbook tối giản</h3><p>Nền sáng, outfit rõ, phù hợp shop thời trang hoặc chụp profile nhẹ nhàng.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
-        <div class="card">
+        <div class="card" onclick="openAlbum('Lookbook đường phố', albums.lookbookStreet)">
           <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80" alt="Lookbook street" />
-          <div class="card-content">
-            <span class="tag">Street / Năng động</span>
-            <h3>Lookbook đường phố</h3>
-            <p>Tự nhiên, trẻ, dễ tạo dáng, hợp với outfit cá tính hoặc casual.</p>
-          </div>
+          <div class="card-content"><span class="tag">Street / Năng động</span><h3>Lookbook đường phố</h3><p>Tự nhiên, trẻ, dễ tạo dáng, hợp với outfit cá tính hoặc casual.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
-        <div class="card">
+        <div class="card" onclick="openAlbum('Lookbook nàng thơ', albums.lookbookSoft)">
           <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80" alt="Lookbook soft" />
-          <div class="card-content">
-            <span class="tag">Soft / Nữ tính</span>
-            <h3>Lookbook nàng thơ</h3>
-            <p>Màu nhẹ, dáng mềm, phù hợp váy, áo kiểu, concept nữ tính.</p>
-          </div>
+          <div class="card-content"><span class="tag">Soft / Nữ tính</span><h3>Lookbook nàng thơ</h3><p>Màu nhẹ, dáng mềm, phù hợp váy, áo kiểu, concept nữ tính.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
       </div>
     </section>
@@ -250,29 +282,17 @@
         <p>Các concept đã có mood, bối cảnh và định hướng tạo dáng sẵn để khách chọn nhanh.</p>
       </div>
       <div class="grid">
-        <div class="card">
+        <div class="card" onclick="openAlbum('Nắng dịu', albums.nangDiu)">
           <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=900&q=80" alt="Nang tho" />
-          <div class="card-content">
-            <span class="tag">Nàng thơ</span>
-            <h3>Nắng dịu</h3>
-            <p>Trong trẻo, nhẹ nhàng, hợp chụp chân dung cá nhân hoặc kỷ niệm.</p>
-          </div>
+          <div class="card-content"><span class="tag">Nàng thơ</span><h3>Nắng dịu</h3><p>Trong trẻo, nhẹ nhàng, hợp chụp chân dung cá nhân hoặc kỷ niệm.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
-        <div class="card">
+        <div class="card" onclick="openAlbum('Portrait Hàn', albums.portraitHan)">
           <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80" alt="Studio portrait" />
-          <div class="card-content">
-            <span class="tag">Studio</span>
-            <h3>Portrait Hàn</h3>
-            <p>Nền đơn giản, tập trung thần thái, dễ dùng làm ảnh đại diện.</p>
-          </div>
+          <div class="card-content"><span class="tag">Studio</span><h3>Portrait Hàn</h3><p>Nền đơn giản, tập trung thần thái, dễ dùng làm ảnh đại diện.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
-        <div class="card">
+        <div class="card" onclick="openAlbum('Vườn hoa nhẹ', albums.vuonHoa)">
           <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" alt="Flower concept" />
-          <div class="card-content">
-            <span class="tag">Hoa / Mềm mại</span>
-            <h3>Vườn hoa nhẹ</h3>
-            <p>Phù hợp khách thích cảm giác nữ tính, sáng, lãng mạn.</p>
-          </div>
+          <div class="card-content"><span class="tag">Hoa / Mềm mại</span><h3>Vườn hoa nhẹ</h3><p>Phù hợp khách thích cảm giác nữ tính, sáng, lãng mạn.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
       </div>
     </section>
@@ -283,29 +303,17 @@
         <p>Gợi ý concept sinh nhật cá nhân, tiệc nhỏ hoặc bộ ảnh kỷ niệm tuổi mới.</p>
       </div>
       <div class="grid">
-        <div class="card">
+        <div class="card" onclick="openAlbum('Birthday cake', albums.birthdayCake)">
           <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=900&q=80" alt="Birthday cake" />
-          <div class="card-content">
-            <span class="tag">Cake / Studio</span>
-            <h3>Birthday cake</h3>
-            <p>Bánh kem, nến, hoa, layout đơn giản nhưng lên ảnh rất xinh.</p>
-          </div>
+          <div class="card-content"><span class="tag">Cake / Studio</span><h3>Birthday cake</h3><p>Bánh kem, nến, hoa, layout đơn giản nhưng lên ảnh rất xinh.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
-        <div class="card">
+        <div class="card" onclick="openAlbum('Tuổi mới rực rỡ', albums.birthdayBalloon)">
           <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=80" alt="Birthday balloons" />
-          <div class="card-content">
-            <span class="tag">Balloon / Vui tươi</span>
-            <h3>Tuổi mới rực rỡ</h3>
-            <p>Có bóng bay, phụ kiện sinh nhật, hợp khách thích ảnh tươi và nổi bật.</p>
-          </div>
+          <div class="card-content"><span class="tag">Balloon / Vui tươi</span><h3>Tuổi mới rực rỡ</h3><p>Có bóng bay, phụ kiện sinh nhật, hợp khách thích ảnh tươi và nổi bật.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
-        <div class="card">
+        <div class="card" onclick="openAlbum('Sinh nhật sang nhẹ', albums.birthdayLuxury)">
           <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80" alt="Luxury birthday" />
-          <div class="card-content">
-            <span class="tag">Luxury / Sang</span>
-            <h3>Sinh nhật sang nhẹ</h3>
-            <p>Makeup kỹ hơn, outfit váy, ánh sáng mềm, hợp concept trưởng thành.</p>
-          </div>
+          <div class="card-content"><span class="tag">Luxury / Sang</span><h3>Sinh nhật sang nhẹ</h3><p>Makeup kỹ hơn, outfit váy, ánh sáng mềm, hợp concept trưởng thành.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
       </div>
     </section>
@@ -316,29 +324,17 @@
         <p>Dành cho khách muốn xây concept riêng theo câu chuyện, màu sắc hoặc nhân vật.</p>
       </div>
       <div class="grid">
-        <div class="card">
+        <div class="card" onclick="openAlbum('Custom ngoại cảnh', albums.customOutdoor)">
           <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Outdoor custom" />
-          <div class="card-content">
-            <span class="tag">Outdoor</span>
-            <h3>Custom ngoại cảnh</h3>
-            <p>Lên ý tưởng theo địa điểm, outfit và mood khách mong muốn.</p>
-          </div>
+          <div class="card-content"><span class="tag">Outdoor</span><h3>Custom ngoại cảnh</h3><p>Lên ý tưởng theo địa điểm, outfit và mood khách mong muốn.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
-        <div class="card">
+        <div class="card" onclick="openAlbum('Custom cá tính', albums.customFashion)">
           <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Fashion custom" />
-          <div class="card-content">
-            <span class="tag">Fashion</span>
-            <h3>Custom cá tính</h3>
-            <p>Phù hợp khách muốn ảnh khác biệt, có màu riêng, tạo dáng mạnh hơn.</p>
-          </div>
+          <div class="card-content"><span class="tag">Fashion</span><h3>Custom cá tính</h3><p>Phù hợp khách muốn ảnh khác biệt, có màu riêng, tạo dáng mạnh hơn.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
-        <div class="card">
+        <div class="card" onclick="openAlbum('Custom theo câu chuyện', albums.customStory)">
           <img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=900&q=80" alt="Story custom" />
-          <div class="card-content">
-            <span class="tag">Story / Cá nhân</span>
-            <h3>Custom theo câu chuyện</h3>
-            <p>Cùng khách xây moodboard, màu sắc, phụ kiện và cách kể chuyện bằng ảnh.</p>
-          </div>
+          <div class="card-content"><span class="tag">Story / Cá nhân</span><h3>Custom theo câu chuyện</h3><p>Cùng khách xây moodboard, màu sắc, phụ kiện và cách kể chuyện bằng ảnh.</p><div class="view-hint">Bấm để xem album</div></div>
         </div>
       </div>
     </section>
@@ -349,8 +345,133 @@
     </div>
   </main>
 
-  <footer>
-    <p>© Album Concept Chụp Ảnh | Thay tên studio của bạn tại đây</p>
-  </footer>
+  <footer><p>© Album Concept Chụp Ảnh | Thay tên studio của bạn tại đây</p></footer>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-box">
+      <div class="lightbox-header">
+        <h3 id="albumTitle">Tên album</h3>
+        <button class="close-btn" onclick="closeAlbum()">×</button>
+      </div>
+      <div class="main-photo-wrap">
+        <button class="arrow left" onclick="prevPhoto()">‹</button>
+        <img class="main-photo" id="mainPhoto" src="" alt="Ảnh concept" />
+        <button class="arrow right" onclick="nextPhoto()">›</button>
+      </div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+  </div>
+
+  <script>
+    // Muốn thay ảnh: chỉ cần đổi các link ảnh trong từng album bên dưới.
+    // Mỗi concept có thể có 2, 3, 5 hoặc nhiều ảnh tùy bạn.
+    const albums = {
+      lookbookClean: [
+        "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80"
+      ],
+      lookbookStreet: [
+        "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80"
+      ],
+      lookbookSoft: [
+        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80"
+      ],
+      nangDiu: [
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80"
+      ],
+      portraitHan: [
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80"
+      ],
+      vuonHoa: [
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80"
+      ],
+      birthdayCake: [
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80"
+      ],
+      birthdayBalloon: [
+        "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80"
+      ],
+      birthdayLuxury: [
+        "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=80"
+      ],
+      customOutdoor: [
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80"
+      ],
+      customFashion: [
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80"
+      ],
+      customStory: [
+        "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80"
+      ]
+    };
+
+    let currentAlbum = [];
+    let currentIndex = 0;
+
+    function openAlbum(title, photos) {
+      currentAlbum = photos;
+      currentIndex = 0;
+      document.getElementById("albumTitle").textContent = title;
+      document.getElementById("lightbox").classList.add("active");
+      showPhoto();
+    }
+
+    function closeAlbum() {
+      document.getElementById("lightbox").classList.remove("active");
+    }
+
+    function showPhoto() {
+      document.getElementById("mainPhoto").src = currentAlbum[currentIndex];
+      const thumbs = document.getElementById("thumbs");
+      thumbs.innerHTML = "";
+      currentAlbum.forEach((photo, index) => {
+        const img = document.createElement("img");
+        img.src = photo;
+        img.className = index === currentIndex ? "active" : "";
+        img.onclick = () => {
+          currentIndex = index;
+          showPhoto();
+        };
+        thumbs.appendChild(img);
+      });
+    }
+
+    function nextPhoto() {
+      currentIndex = (currentIndex + 1) % currentAlbum.length;
+      showPhoto();
+    }
+
+    function prevPhoto() {
+      currentIndex = (currentIndex - 1 + currentAlbum.length) % currentAlbum.length;
+      showPhoto();
+    }
+
+    document.getElementById("lightbox").addEventListener("click", function(event) {
+      if (event.target.id === "lightbox") closeAlbum();
+    });
+  </script>
 </body>
 </html>
